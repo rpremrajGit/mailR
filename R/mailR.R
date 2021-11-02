@@ -1,9 +1,9 @@
-#' Internal function to create file attachment objects
-#'
-#' @param attach.files A character vector of paths to files in the file system or valid URLs to be attached.
-#' @param dots A list generated from the ellipsis parameters in send.mail. See details for more info.
-#' @return attachments A vector of Java objects of class org.apache.commons.mail.EmailAttachment
-#' @details The relevant optional parameters include 'file.names' listing names to assign to the attached files and 'file.descriptions' that are descriptions to be assigned to the files. If included, both paramters should be of the same length as
+# Internal function to create file attachment objects
+#
+# @param attach.files A character vector of paths to files in the file system or valid URLs to be attached.
+# @param dots A list generated from the ellipsis parameters in send.mail. See details for more info.
+# @return attachments A vector of Java objects of class org.apache.commons.mail.EmailAttachment
+# @details The relevant optional parameters include 'file.names' listing names to assign to the attached files and 'file.descriptions' that are descriptions to be assigned to the files. If included, both paramters should be of the same length as
 .createEmailAttachments <- function(attach.files, dots = NULL)
 {
   file.names <- NULL
@@ -46,11 +46,11 @@
   return(attachments)
 }
 
-#' Internal function to embed referenced images as inline
-#'
-#' @param image.file.locations A vector of paths to images files in the file system to be embedded
-#' @return file.resolver A vector of Java objects of class org.apache.commons.mail.resolver.DataSourceFileResolver
-#' @details This is an internal function that performs the groundwork to embed images as inline.
+# Internal function to embed referenced images as inline
+#
+# @param image.file.locations A vector of paths to images files in the file system to be embedded
+# @return file.resolver A vector of Java objects of class org.apache.commons.mail.resolver.DataSourceFileResolver
+# @details This is an internal function that performs the groundwork to embed images as inline.
 .resolveInlineImages <- function(image.file.locations)
 {
   base_dir <- .jnew("java.io.File", normalizePath(getwd()))
@@ -60,10 +60,10 @@
   return(file.resolver)
 }
 
-#' Internal function to establish authenticated connection with SMTP server
-#'
-#' @param smtp A list of parameters to establish and authorize a connection with the SMTP server. See details for the various parameters.
-#' @return smtp.authentication A Java object of class 'org.apache.commons.mail.DefaultAuthenticator'
+# Internal function to establish authenticated connection with SMTP server
+#
+# @param smtp A list of parameters to establish and authorize a connection with the SMTP server. See details for the various parameters.
+# @return smtp.authentication A Java object of class 'org.apache.commons.mail.DefaultAuthenticator'
 .authenticateSMTP <- function(smtp)
 {
   if(!all(c("user.name", "passwd") %in% names(smtp)))
@@ -74,21 +74,21 @@
   return(smtp.authentication)
 }
 
-#' Internal function to strip HTML tags from a string
-#'
-#' @param string String to strip HTML tags from.
-#' @return string
+# Internal function to strip HTML tags from a string
+#
+# @param htmlString String to strip HTML tags from.
+# @return string
 .stripHTML <- function(htmlString) {
   return(gsub("<.*?>", "", htmlString))
 }
 
 
-#' Internal function to set encoding of the email
-#'
+# Internal function to set encoding of the email
+#
 
-#' @param email Commons email object
-#' @param encoding Character encoding to use for the email. Supported encodings include iso-8859-1 (default), utf-8, us-ascii, and koi8-r.
-#' @return email Commons email object with set encoding
+# @param email Commons email object
+# @param encoding Character encoding to use for the email. Supported encodings include iso-8859-1 (default), utf-8, us-ascii, and koi8-r.
+# @return email Commons email object with set encoding
 .resolveEncoding <- function(email, encoding)
 {
   switch(encoding,
@@ -250,10 +250,10 @@ send.mail <- function(from, to, subject = "", body = "", encoding = "iso-8859-1"
   return(email)
 }
 
-#' Internal function to validate email addresses
-#'
-#' @param emails A character vector of email addresses.
-#' @return TRUE Boolean TRUE if all items in 'emails' are valid emails. If a malformed email address is identified, the function stops execution of the calling function 'send.mail' and prints the relevant item to console.
+# Internal function to validate email addresses
+#
+# @param emails A character vector of email addresses.
+# @return TRUE Boolean TRUE if all items in 'emails' are valid emails. If a malformed email address is identified, the function stops execution of the calling function 'send.mail' and prints the relevant item to console.
 # @examples
 # .valid.email("<user@@email.com>") # TRUE
 
@@ -267,8 +267,8 @@ send.mail <- function(from, to, subject = "", body = "", encoding = "iso-8859-1"
   return(TRUE)
 }
 
-#' Internal function to catch Java exceptions and print stack traces. Inspired by author of package XLConnect.
-#' @param ... A call to a Java method
+# Internal function to catch Java exceptions and print stack traces. Inspired by author of package XLConnect.
+# @param ... A call to a Java method
 .jTryCatch <- function(...) {
   tryCatch(..., Throwable =
              function(e) {
