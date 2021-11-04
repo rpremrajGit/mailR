@@ -3,16 +3,17 @@ Type: Package
 Title: A Utility to Send Emails from R
 Description: Interface to Apache Commons Email to send emails
     from R.
-Version: 0.7
-Date: 2021-08-24
+Version: 0.8
+Date: 2021-11-05
 Author: Rahul Premraj
 Maintainer: Rahul Premraj <r.premraj+mailR@gmail.com>
 License: GPL-3
 Imports:
     rJava,
     stringr,
-    R.utils
+    R.utils,
+    assertthat
 SystemRequirements: Java
-URL: https://github.com/rpremraj/mailR
+URL: https://github.com/rpremrajGit/mailR
 RoxygenNote: 7.1.2
 Encoding: UTF-8

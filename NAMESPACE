@@ -2,5 +2,6 @@
 
 export(send.mail)
 import(R.utils)
+import(assertthat)
 import(rJava)
 import(stringr)

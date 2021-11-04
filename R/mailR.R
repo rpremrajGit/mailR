@@ -138,6 +138,7 @@
 #' @import rJava
 #' @import stringr
 #' @import R.utils
+#' @import assertthat
 #' @note For more examples, see https://github.com/rpremraj/mailR
 #' @examples
 #' sender <- "sender@@gmail.com"  # Replace with a valid address
@@ -149,17 +150,18 @@
 #'                    smtp = list(host.name = "aspmx.l.google.com", port = 25),
 #'                    authenticate = FALSE,
 #'                    send = FALSE)
-#' \dontrun{email$send() # execute to send email}
+#' \dontrun{email$send() # execute to send email or set parameter send= TRUE in send.mail()}
 send.mail <- function(from, to, subject = "", body = "", encoding = "iso-8859-1", html = FALSE, inline = FALSE, smtp = list(), authenticate = FALSE, timeout = 60000, send = TRUE, attach.files = NULL, debug = FALSE, ...)
 {
-  if (length(from) != 1)
-    stop("Argument 'from' must be a single (valid) email address.")
+  assert_that(length(from) == 1, msg = "Argument 'from' should be a of length one.")
+  assert_that(length(to) > 0, msg = "Argument 'to' must have at least one single (valid) email address.")
+  assert_that("host.name" %in% names(smtp), msg = "Check documentation to include all mandatory parameters to establish SMTP connection.")
 
-  if (!length(to) > 0)
-    stop("Argument 'to' must have at least one single (valid) email address.")
-
-  if(!all(c("host.name") %in% names(smtp)))
-    stop("Check documentation to include all mandatory parameters to establish SMTP connection.")
+  if (authenticate)
+  {
+    assert_that("user.name" %in% names(smtp), msg = "List element 'user.name' missing in smtp. Check documentation to include all mandatory parameters to establish SMTP connection.")
+    assert_that("passwd" %in% names(smtp), msg = "List element 'passwd' missing in smtp. Check documentation to include all mandatory parameters to establish SMTP connection.")
+  }
 
   dots <- list(...)
 
@@ -202,11 +204,11 @@ send.mail <- function(from, to, subject = "", body = "", encoding = "iso-8859-1"
 
   if("ssl" %in% names(smtp))
     if(smtp$ssl)
-      email$setSSL(TRUE)
+      email$setSSLOnConnect(TRUE)
 
   if("tls" %in% names(smtp))
     if(smtp$tls)
-      email$setTLS(TRUE)
+      email$setStartTLSEnabled(TRUE)
 
   if(!missing(timeout) && is.numeric(timeout)){
     email$setSocketTimeout(as.integer(timeout))
@@ -263,23 +265,25 @@ send.mail <- function(from, to, subject = "", body = "", encoding = "iso-8859-1"
 #'
 #' @keywords internal
 #' @noRd
-#' @param emails A character vector of email addresses.
+#' @param email.addresses A character vector of email addresses expected in RFC#822 standard.
 #' @return TRUE Boolean TRUE if all items in 'emails' are valid emails. If a malformed email address is identified, the function stops execution of the calling function 'send.mail' and prints the relevant item to console.
 #' @examples
 #' .valid.email("<user@@email.com>") # TRUE
 
-.valid.email <- function(emails)
+.valid.email <- function(email.addresses)
 {
-  for(i in emails)
-  {
-    .jTryCatch(.jnew("javax.mail.internet.InternetAddress", i))
-  }
-  gc()
-  return(TRUE)
+  valid <- logical(length(email.addresses))
+
+  for(i in seq_along(email.addresses))
+    valid[i] <- ifelse(length(.jTryCatch(.jnew("javax.mail.internet.InternetAddress", email.addresses[i])$validate())) == 0, TRUE, FALSE)
+
+  if(all(valid))
+    return(TRUE)
 }
 
+
 #' Internal function to catch Java exceptions and print stack traces. Inspired by author of package XLConnect.
-#' 
+#'
 #' @keywords internal
 #' @noRd
 #' @param ... A call to a Java method

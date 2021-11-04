@@ -11,7 +11,19 @@ It is developed as a wrapper around [Apache Commons Email](http://commons.apache
 - attaching multiple files from the file system or from URLs
 - sending HTML formatted emails with inline images
 
-What's new in version 0.7
+Note: This is the new home for mailR. The previous repository [https://github.com/rpremraj/mailR](https://github.com/rpremraj/mailR) is discontinued.
+
+What's new in version 0.8
+-------------------------
+**5th Nov 2021**
+
+*Fixes*
+- Added activation.jar dependency
+- Switched from deprecated function setSmtpPort to setSSLOnConnect when using SSL
+- Switched from deprecated function setTLS to setStartTLSEnabled when using SSL
+- Internal function .valid.email() actually works now!
+
+What's new in version 0.7 (Thank you, [sclewis23](https://github.com/sclewis23))
 -------------------------
 **24th August 2021**
 
@@ -20,14 +32,6 @@ What's new in version 0.7
 - Upgraded Javax.mail Jar to version 1.6.2
 
 
-What's new in version 0.6
--------------------------
-**18th January 2016**
-
-*Enhancements*
-- Refinement to the stripped down text version of HTML emails for incompatible clients (thanks to @dtenenba)
-- Ability to add email headers by passing a named list `headers` (thanks to @dtenenba)
-
 Installation instructions
 =========================
 You can install the latest development version of mailR using devtools:
@@ -35,7 +39,7 @@ You can install the latest development version of mailR using devtools:
 ```R
 install.packages("devtools", dep = T)
 library(devtools)
-install_github("rpremraj/mailR")
+install_github("rpremrajGit/mailR")
 
 library(mailR)
 ```
@@ -202,12 +206,21 @@ While I will do my best to support you, there is little I can do remotely if you
 
 Issues/Contibutions
 ===================
-Happy to hear about issues you encounter using mailR via Github's [issue tracker](https://github.com/rpremraj/mailR/issues/new).
+Please post any issues encountered using mailR to the [issue tracker](https://github.com/rpremrajGit/mailR/issues).
 
 If you would like to submit a patch to improve mailR, please send a pull request to the *develop branch*.
 
 Change log
 ===================
+
+What's new in version 0.6
+-------------------------
+**18th January 2016**
+
+*Enhancements*
+- Refinement to the stripped down text version of HTML emails for incompatible clients (thanks to @dtenenba)
+- Ability to add email headers by passing a named list `headers` (thanks to @dtenenba)
+
 **6th December 2015**
 
 *Enhancements*

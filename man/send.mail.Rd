@@ -78,5 +78,5 @@ email <- send.mail(from = sender,
                    smtp = list(host.name = "aspmx.l.google.com", port = 25),
                    authenticate = FALSE,
                    send = FALSE)
-\dontrun{email$send() # execute to send email}
+\dontrun{email$send() # execute to send email or set parameter send= TRUE in send.mail()}
 }
