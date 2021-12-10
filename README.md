@@ -1,5 +1,5 @@
-[![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/infuser)](http://cran.r-project.org/web/packages/mailR)
-[![Downloads](http://cranlogs.r-pkg.org/badges/infuser)](http://cran.rstudio.com/package=mailR)
+[![CRAN\_Status\_Badge](https://www.r-pkg.org/badges/version/mailR)](http://cran.r-project.org/web/packages/mailR)
+[![Downloads](https://cranlogs.r-pkg.org/badges/mailR)](http://cran.rstudio.com/package=mailR)
 
 Overview
 ========
@@ -12,24 +12,6 @@ It is developed as a wrapper around [Apache Commons Email](http://commons.apache
 - sending HTML formatted emails with inline images
 
 Note: This is the new home for mailR. The previous repository [https://github.com/rpremraj/mailR](https://github.com/rpremraj/mailR) is discontinued.
-
-What's new in version 0.8
--------------------------
-**5th Nov 2021**
-
-*Fixes*
-- Added activation.jar dependency
-- Switched from deprecated function setSmtpPort to setSSLOnConnect when using SSL
-- Switched from deprecated function setTLS to setStartTLSEnabled when using SSL
-- Internal function .valid.email() actually works now!
-
-What's new in version 0.7 (Thank you, [sclewis23](https://github.com/sclewis23))
--------------------------
-**24th August 2021**
-
-*Updates*
-- Upgraded Commons Email Jar to version 1.5
-- Upgraded Javax.mail Jar to version 1.6.2
 
 
 Installation instructions
@@ -210,55 +192,3 @@ Please post any issues encountered using mailR to the [issue tracker](https://gi
 
 If you would like to submit a patch to improve mailR, please send a pull request to the *develop branch*.
 
-Change log
-===================
-
-What's new in version 0.6
--------------------------
-**18th January 2016**
-
-*Enhancements*
-- Refinement to the stripped down text version of HTML emails for incompatible clients (thanks to @dtenenba)
-- Ability to add email headers by passing a named list `headers` (thanks to @dtenenba)
-
-**6th December 2015**
-
-*Enhancements*
-- Better handling of errors thrown by Java (thanks to @chlorenz)
-- Email clients unable to view HTML emails now receive stripped down version of message (Fixes #24)
-
-**30th December 2014**
-
-*Features*
-- Attach files to the email using URLs, e.g., you can send files from your Dropbox public folder using the URL.
-- A 'debug' parameter to set that will make send.mail() provide a detailed log.
-- Option to set a email address to reply to using the 'replyTo' parameter.
-
-*Enhancement*
-- Upgraded Commons Email Jar to version 1.3.3
-- Upgraded Javax.mail Jar to version 1.5.2
-
-**08th September 2014**
-
-*Enhancement*
-- Better resolution of paths to allow attaching files from locations other than the working directory.
-- Updated documentation to give example of use on MS Exchange
-
-**12th May 2014**
-
-*Features*
-- Added support to encode emails using iso-8859-1, utf-8, us-ascii, and koi8-r character sets.
-- The body parameter can point to a locally stored text (or HTML) file and mailR will parse its contents to create the body of the email.
-
-*Bug fixes*
-- Experimental: changed called methods to set SSL/TLS to true to check whether it resolves issue that causes port number to default to 465.
-
-**20th April 2014**
-
-*Features*
-- mailR now allows sending email content as HTML including allowing for embedding images as inline (currently an experimental feature).
-- Email addresses conforming to RFC 2822 allowed, e.g., "FirstName LastName <sender@domain.com>" allowed.
-- A java stacktrace is printed out in case of failure when sending the email to allow better root cause analysis.
-
-*Bug fixes*
-- Fixed a bug that incorrectly set the TLS parameter as TRUE whenever the SSL parameter was set as TRUE.
